@@ -1,7 +1,6 @@
 import re
 import pandas as pd
 import numpy as np
-import emoji
 def composer(chat_data):   
     ## Extractiong date in a list
     date_pattern = '\d{1,2}.\d{1,2}.\d{2,4},\s\d{1,2}:\d{1,2}\s.m\s' #pattern for 24 hrs setting

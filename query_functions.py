@@ -74,7 +74,7 @@ def most_common_words(user_selected,df):
     
     if user_selected != 'All':
         df = df[df['user_names'] == user_selected]
-    stops = open('E:\Analytics vidhya\My projects\whats_appchat_analysis\stop_hinglish',mode='r')
+    stops = open('stop_hinglish',mode='r')
     stop_words = stops.read()
     stop_words = stop_words+'h'
     words4 = []

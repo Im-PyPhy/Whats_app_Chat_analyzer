@@ -2,7 +2,13 @@ import streamlit as st
 import composing
 import query_functions
 st.title("Welcome to What's App Chat Analyzer")
-
+st.sidebar.markdown("## Instructions to generate the text file:")
+st.sidebar.markdown( "1. Open your what's app application on your phone.")
+st.sidebar.markdown("2. Go to your desired chats ")
+st.sidebar.markdown("3. Tap on the three dots on right top corner. ")
+st.sidebar.markdown("4. In the dropdown menu tap on 'more' option. ")
+st.sidebar.markdown("5. Click on export chat and click on without media. ")
+st.sidebar.markdown("6. Drop the generated text file in this app using browse option below.")
 uploaded_file = st.sidebar.file_uploader("Choose the what's app chat file:",type= 'txt')
 if uploaded_file is not None: 
     bytes_data = uploaded_file.getvalue()
