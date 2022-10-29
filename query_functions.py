@@ -6,6 +6,7 @@ import seaborn as sns
 from wordcloud import WordCloud,STOPWORDS
 from collections import Counter
 from urlextract import URLExtract
+
 def fetch_data(user_selected,df):
     if user_selected != 'All':
         df = df[df['user_names'] == user_selected]
@@ -113,8 +114,10 @@ def monthly(user_selected,df,year):
         df = df[df['user_names'] == user_selected]
     if year !='All':
         df = df[df['year'].astype(str)== year]
-    monthly =pd.DataFrame(df.groupby(by = ['year','month'])['messages'].agg( ['count'])).reset_index()
+    monthly =pd.DataFrame(df.groupby(by = ['year','month_no','month'])['messages'].agg( ['count'])).reset_index()
     monthly['Time'] = monthly['year'].astype(str) + '-' + monthly['month']
+    most_active_month = monthly.sort_values(by=['count']).tail(1)[['Time','count']].values[0].tolist()
+    least_active_month = monthly.sort_values(by=['count']).head(1)[['Time','count']].values[0].tolist()
     if monthly.shape[0] >1:
         plt.style.use('fivethirtyeight')
         fig,ax = plt.subplots(figsize=(10,6))
@@ -122,16 +125,16 @@ def monthly(user_selected,df,year):
         sns.lineplot('Time', 'count', data = monthly,color = 'magenta',ax=ax)
         plt.xticks(rotation='vertical')
         plt.ylabel('No of Messages')
-        return  fig
+        return  fig,most_active_month,least_active_month
     
     elif monthly.shape[0]==1:
-        return monthly
+        return monthly,most_active_month,least_active_month
     elif monthly.shape[0] == 0:
-        return 'No Activity'
+        return 'No Activity',most_active_month,least_active_month
     
     
       # weekly  
-def weekly(user_selected,df,year,month):
+def weekly(user_selected,df,year,month='All'):
     if user_selected != 'All':
         df = df[df['user_names'] == user_selected]
     if year !='All':
@@ -140,17 +143,19 @@ def weekly(user_selected,df,year,month):
         df = df[df['month'].astype(str)== month]
     weekly = df.groupby(by = ['year','week'])['messages'].agg(['count']).reset_index()
     weekly['Date'] = weekly['year'].astype(str) + '- week'+ weekly['week'].astype(str)
+    most_active_week= weekly.sort_values(by=['count']).tail(1)[['Date','count']].values[0].tolist()
+    least_active_week = weekly.sort_values(by=['count']).head(1)[['Date','count']].values[0].tolist()
     if weekly.shape[0] >1:
         plt.style.use('seaborn')
         fig,ax = plt.subplots(figsize=(10,8))
         sns.lineplot('Date', 'count', data = weekly,color = 'magenta',ax=ax)
         plt.xticks(rotation='vertical')
         plt.ylabel('No of Messages')
-        return  fig 
+        return  fig,most_active_week,least_active_week
     elif weekly.shape[0]==1:
-        return weekly
+        return weekly,most_active_week,least_active_week
     elif weekly.shape[0] == 0:
-        return 'No Activity'
+        return 'No Activity',most_active_week,least_active_week
     
     
    # Busy Days  
@@ -162,7 +167,7 @@ def Busy_Days(user_selected,df,year,month):
         df = df[df['year'].astype(str)== year]
     if month !='All':
         df = df[df['month'].astype(str)== month]
-    Days= df.groupby(by = ['day'])['messages'].agg(['count']).reset_index()
+    Days= df.groupby(by = ['week_day_no','day'])['messages'].agg(['count']).reset_index()
     if Days.shape[0] >1:
         plt.style.use('seaborn')
         fig,ax = plt.subplots(figsize=(10,8))
@@ -175,7 +180,7 @@ def Busy_Days(user_selected,df,year,month):
     elif Days.shape[0]==1:
         return Days
     elif Days.shape[0] == 0:
-        return 'No Activity'    
+        return 'No Activity'
     
 ## Hourly Activity
 def hourly_act(user_selected,df):

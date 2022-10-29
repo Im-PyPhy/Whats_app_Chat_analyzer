@@ -45,10 +45,12 @@ def composer(chat_data):
     ## Extracting year,month,day,day_name,hour,minute
     df['year'] =df['date'].dt.year
     df['month'] = df['date'].dt.month_name()
+    df['month_no'] = df['date'].dt.month
     df['day'] = df['date'].dt.day_name()
     df['hour'] = df['date'].dt.hour
     df['minute'] = df['date'].dt.minute  
     df['week'] = df['date'].dt.week
+    df['week_day_no']=df['date'].dt.weekday
     df['period'] =  df['hour'].apply(lambda x: str(x) + '-'+ str(x+1) if x!=23 else str(x)+ '-'+ str(0) )
  #   emoji_count =[]
  #   for i in df['messages']:

@@ -2,6 +2,9 @@ import streamlit as st
 import composing
 import query_functions
 st.title("Welcome to What's App Chat Analyzer")
+
+st.image('logo2.png')
+
 st.sidebar.markdown("## Instructions to generate the text file:")
 st.sidebar.markdown( "1. Open your what's app application on your phone.")
 st.sidebar.markdown("2. Go to your desired chats ")
@@ -19,15 +22,8 @@ if uploaded_file is not None:
     names.insert(0,'All')
     
     
-    user_selected=st.sidebar.selectbox('Group Members:',names)
+    user_selected=st.sidebar.selectbox('Select Group Members:',names)
     st.sidebar.write('You Selected:', user_selected)
-#    if user_selected != 'All':
- #       df_new = df[df['user_names'] == user_selected]
- #   else:
- #       df_new = df
-  #  st.dataframe(df_new)
-    
-    #if st.sidebar.button("Show Analysis"):
         
     no_mes,words,media,link,count  = query_functions.fetch_data(user_selected, df)
     st.header(f'Stats of {user_selected}')
@@ -84,7 +80,7 @@ if uploaded_file is not None:
     st.write('You selected', year)
     
     
-    fig = query_functions.monthly(user_selected, df, year)
+    fig,most_active_month,least_active_month = query_functions.monthly(user_selected, df, year)
     col1,col2 = st.columns(2)
     with col1:
         st.subheader(f'Monthly activity of {user_selected}')
@@ -98,7 +94,14 @@ if uploaded_file is not None:
             st.table(fig)
         except:
             st.write(fig)
-    
+    col1,col2 = st.columns(2)
+    with col1:
+        st.subheader('Most talkitive month:')
+        st.subheader(f'{most_active_month[0]} with {most_active_month[1]} messages')
+    with col2:
+        st.subheader('Least talkitive month:')
+        st.subheader(f'{least_active_month[0]} with {least_active_month[1]} messages')
+        
     st.text(" ")
     st.text(" ")
     st.text(" ")
@@ -121,7 +124,7 @@ if uploaded_file is not None:
         month = st.selectbox('Select month:',month)     
         st.write('You selected', month)
           
-    fig = query_functions.weekly(user_selected, df, year,month)
+    fig,most_active_week,least_active_week = query_functions.weekly(user_selected, df, year,month)
     col1,col2 = st.columns(2)
     with col1:
         st.subheader(f'Weekly activity of:{user_selected}')
@@ -134,6 +137,14 @@ if uploaded_file is not None:
             st.table(fig)
         except:
             st.write(fig)
+            
+    col1,col2 = st.columns(2)
+    with col1:
+        st.subheader('Most talkitive week:')
+        st.subheader(f'{most_active_week[0]} with {most_active_week[1]} messages')
+    with col2:
+        st.subheader('Least talkitive week:')
+        st.subheader(f'{least_active_week[0]} with {least_active_week[1]} messages')
 
     st.text(" ")
     st.text(" ")
