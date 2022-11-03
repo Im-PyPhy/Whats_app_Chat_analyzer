@@ -53,7 +53,7 @@ def active_users(df):
     else:
         fig2,ax2 = plt.subplots(figsize=(10,10))
         plt.pie(series2.values,labels=series2.index,autopct='%1.1f%%',rotatelabels=True)     
-    return fig,fig2
+    return fig,fig2, df['user_names'].nunique()
 
 
 ## Creating WordCloud    

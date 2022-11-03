@@ -53,11 +53,12 @@ if uploaded_file is not None:
     st.text(" ")
     st.text(" ")
     if user_selected == 'All':
-        st.header('Most Active Users')
+        plot1,plot2,num_users = query_functions.active_users(df)
+        if num_users< 10:
+            st.header('Most Active Users')
+        else:
+            st.header('Top 10 most active users')
         col1,col2 = st.columns([2,1])
-        plot1,plot2 = query_functions.active_users(df)
-        
-        
         with col1:      
             st.pyplot(plot1)
         with col2:
@@ -187,8 +188,11 @@ if uploaded_file is not None:
 
 #Hourly Act
     st.header('Day-Hour Map')
+    st.markdown("**Instructions to interpret:**")
+    st.markdown("This is a day-Hour heatmap.The vertical axis shows the days of week and horizontal axis shows hours in a day.The more red color a block is more messages has been sent during that day in that hour. And more blue block implies the less talk has been done during that day in that hour")
     fig  = query_functions.hourly_act(user_selected, df)
     st.pyplot(fig)
+   
      
     # Word Counts:
     st.text(" ")
