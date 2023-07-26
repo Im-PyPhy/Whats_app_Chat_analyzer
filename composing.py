@@ -49,8 +49,8 @@ def composer(chat_data):
     df['day'] = df['date'].dt.day_name()
     df['hour'] = df['date'].dt.hour
     df['minute'] = df['date'].dt.minute  
-    df['week'] = df['date'].dt.week
-    df['week_day_no']=df['date'].dt.weekday
+    df['week'] = df['date'].dt.isocalender().week
+    df['week_day_no']=df['date'].dt.isocalender().weekday
     df['period'] =  df['hour'].apply(lambda x: str(x) + '-'+ str(x+1) if x!=23 else str(x)+ '-'+ str(0) )
  #   emoji_count =[]
  #   for i in df['messages']:
