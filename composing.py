@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 import numpy as np
+
 def composer(chat_data):   
     ## Extractiong date in a list
     date_pattern = '\d{1,2}.\d{1,2}.\d{2,4},\s\d{1,2}:\d{1,2}\s.m\s' #pattern for 24 hrs setting
@@ -18,7 +19,7 @@ def composer(chat_data):
 
     df = pd.DataFrame({'date': date, 'user_messages': chat_messages})
     df['date'] = pd.to_datetime(df['date'])
-    
+    df['date_2'] = df['date'].apply(lambda x: pd.Timestamp(x).strftime('%Y-%m-%d %H:%M:%S'))
     ## Extracting user names and creating a new column with the user name
     user_name = []
     messages = []
@@ -49,8 +50,8 @@ def composer(chat_data):
     df['day'] = df['date'].dt.day_name()
     df['hour'] = df['date'].dt.hour
     df['minute'] = df['date'].dt.minute  
-    df['week'] = df['date'].dt.isocalender().week
-    df['week_day_no']=df['date'].dt.isocalender().weekday
+    df['week'] = df['date_2'].apply(lambda x: pd.Timestamp(x).week)
+    df['week_day_no']=df['date'].dt.weekday
     df['period'] =  df['hour'].apply(lambda x: str(x) + '-'+ str(x+1) if x!=23 else str(x)+ '-'+ str(0) )
  #   emoji_count =[]
  #   for i in df['messages']:
@@ -59,3 +60,4 @@ def composer(chat_data):
     #df = pd.concat([df,emoji_count],axis=1)
     
     return df
+    
