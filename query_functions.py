@@ -1,4 +1,4 @@
-    import emoji
+import emoji
 
 import pandas as pd
 
