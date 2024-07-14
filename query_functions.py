@@ -18,13 +18,8 @@ import streamlit as st
 
 
 def fetch_data(user_selected,df):
-<<<<<<< HEAD
+
     if user_selected != 'All Members':
-=======
-
-    if user_selected != 'All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['user_names'] == user_selected]
 
     
@@ -78,13 +73,8 @@ def fetch_data(user_selected,df):
         count = count+emoji.emoji_count(i)
 
     return num_messages, len(words2), len(media),links,count
-<<<<<<< HEAD
+
 @st.cache_data
-=======
-
-    
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
 def active_users(df):
 
     series2 =df['user_names'].value_counts().head(10)
@@ -126,13 +116,7 @@ def active_users(df):
 ## Creating WordCloud    
 
 def wordcloud(user_selected,df):
-<<<<<<< HEAD
     if user_selected != 'All Members':
-=======
-
-    if user_selected != 'All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['user_names'] == user_selected]
 
     wc = WordCloud(width=500,height=500,stopwords=STOPWORDS,min_word_length=3,background_color='white',min_font_size=10)
@@ -158,15 +142,7 @@ def wordcloud(user_selected,df):
 
 
 def most_common_words(user_selected,df):
-
-    
-<<<<<<< HEAD
     if user_selected != 'All Members':
-=======
-
-    if user_selected != 'All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['user_names'] == user_selected]
 
     stops = open('stop_hinglish',mode='r')
@@ -214,13 +190,7 @@ def most_common_words(user_selected,df):
 
 
 def emoji_analysis(user_selected,df):
-<<<<<<< HEAD
     if user_selected != 'All Members':
-=======
-
-    if user_selected != 'All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['user_names'] == user_selected]
 
     
@@ -242,19 +212,9 @@ def emoji_analysis(user_selected,df):
     # Monthly
 
 def monthly(user_selected,df,year):
-<<<<<<< HEAD
     if user_selected != 'All Members':
         df = df[df['user_names'] == user_selected]
     if year !='All Time':
-=======
-
-    if user_selected != 'All':
-
-        df = df[df['user_names'] == user_selected]
-
-    if year !='All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['year'].astype(str)== year]
 
     monthly =pd.DataFrame(df.groupby(by = ['year','month_no','month'])['messages'].agg( ['count'])).reset_index()
@@ -295,29 +255,13 @@ def monthly(user_selected,df,year):
 
     
 
-      # weekly  
-<<<<<<< HEAD
+      # weekly
 def weekly(user_selected,df,year,month='All months'):
     if user_selected != 'All Members':
         df = df[df['user_names'] == user_selected]
     if year !='All Time':
         df = df[df['year'].astype(str)== year]
     if month !='All months':
-=======
-
-def weekly(user_selected,df,year,month='All'):
-
-    if user_selected != 'All':
-
-        df = df[df['user_names'] == user_selected]
-
-    if year !='All':
-
-        df = df[df['year'].astype(str)== year]
-
-    if month !='All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['month'].astype(str)== month]
 
     weekly = df.groupby(by = ['year','week'])['messages'].agg(['count']).reset_index()
@@ -359,25 +303,11 @@ def weekly(user_selected,df,year,month='All'):
 ## Most busy days:
 
 def Busy_Days(user_selected,df,year,month):
-<<<<<<< HEAD
     if user_selected != 'All Members':
         df = df[df['user_names'] == user_selected]
     if year !='All Time':
         df = df[df['year'].astype(str)== year]
     if month !='All months':
-=======
-
-    if user_selected != 'All':
-
-        df = df[df['user_names'] == user_selected]
-
-    if year !='All':
-
-        df = df[df['year'].astype(str)== year]
-
-    if month !='All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['month'].astype(str)== month]
 
     Days= df.groupby(by = ['week_day_no','day'])['messages'].agg(['count']).reset_index()
@@ -413,13 +343,7 @@ def Busy_Days(user_selected,df,year,month):
 ## Hourly Activity
 
 def hourly_act(user_selected,df):
-<<<<<<< HEAD
     if user_selected != 'All Members':
-=======
-
-    if user_selected != 'All':
-
->>>>>>> 0654f89660535ff5362dbb4d943baab5d26dbbe7
         df = df[df['user_names'] == user_selected]   
 
     plt.style.use('seaborn')
