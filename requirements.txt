@@ -42,7 +42,6 @@ platformdirs==2.5.2
 prompt-toolkit==3.0.36
 protobuf==3.20.3
 psutil==5.9.4
-pyarrow==9.0.0
 pydeck==0.8.0b4
 Pygments==2.13.0
 Pympler==1.0.1
